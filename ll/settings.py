@@ -12,4 +12,6 @@ BOT_VERSION = '1.0'
 SPIDER_MODULES = ['ll.spiders']
 NEWSPIDER_MODULE = 'll.spiders'
 USER_AGENT = '%s/%s' % (BOT_NAME, BOT_VERSION)
-
+ITEM_PIPELINES = {  
+    'll.pipelines.LlPipeline':300  
+}  
