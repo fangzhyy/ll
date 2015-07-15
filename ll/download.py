@@ -32,6 +32,7 @@ class imageDownload():
                 if(c<='9' and c>='0'):
                     idStr+=c
             if(os.path.exists(folder+"/%s.jpg"%idStr)):
+                print 'skip ',folder+"/%s.jpg"%idStr
                 return False
             refer="http://movie.douban.com/celebrity/1049732/photo/%s/"%(idStr)
             request=urllib2.Request(url)
