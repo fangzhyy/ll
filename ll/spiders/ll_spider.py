@@ -13,7 +13,7 @@ import time
 
 class testImage(BaseSpider):
     name='ll'
-    search_key=["全智贤"]
+    search_key=["杰西卡·阿尔芭 ","斯嘉丽·约翰逊","莫妮卡·贝鲁奇","娜塔莎·金斯基", "伊娃·格林","凯拉·奈特莉","安妮·海瑟薇","泰莎·法米加"]
     allowed_domain=["douban.com"]
     start_urls=[]
     f=open('test2.txt','wb')
