@@ -10,4 +10,5 @@ class UrlItem(Item):
     # name = Field()
     url = Field()
     name = Field()
+    people_id = Field()
     pass

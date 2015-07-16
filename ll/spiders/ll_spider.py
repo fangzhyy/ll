@@ -13,7 +13,7 @@ import time
 
 class testImage(BaseSpider):
     name='ll'
-    search_key=["杰西卡·阿尔芭 ","斯嘉丽·约翰逊","莫妮卡·贝鲁奇","娜塔莎·金斯基", "伊娃·格林","凯拉·奈特莉","安妮·海瑟薇","泰莎·法米加"]
+    search_key=["杰西卡·阿尔芭 "]#[,"斯嘉丽·约翰逊","莫妮卡·贝鲁奇","娜塔莎·金斯基", "伊娃·格林","凯拉·奈特莉","安妮·海瑟薇","泰莎·法米加"]
     allowed_domain=["douban.com"]
     start_urls=[]
     f=open('test2.txt','wb')
@@ -47,6 +47,7 @@ class testImage(BaseSpider):
         sites=hxs.select('//div[@class="mod"]/div[@class="hd"]/h2/span/a/text()').extract();
         image_count=0
         for site in sites:
+            print 'site in parse_image_count', site
             id_str=""    
             for c in site:
                 if(c>='0' and c<='9'):
@@ -54,12 +55,13 @@ class testImage(BaseSpider):
             if(len(id_str)>0):
                 image_count=int(id_str)
                 print 'count=',image_count
-        base_url=response.url+'/photos/?type=C&start=%d&sortby=vote&size=a&subtype=a'
+        base_url=response.url+'photos/?type=C&start=%d&sortby=vote&size=a&subtype=a'
+        people_id = re.search('\d+', response.url).group()
         for i in range(0,image_count,40):    
             target_url=base_url%i
             print 'target_url=',target_url
             time.sleep(1)
-            yield Request(url=target_url,meta={'name':response.meta['name']},callback=self.parse_image_url)
+            yield Request(url=target_url,meta={'name':response.meta['name'], 'people_id' : people_id},callback=self.parse_image_url)
     
     def parse_image_url(self, response):
         name=response.meta['name']
@@ -71,6 +73,7 @@ class testImage(BaseSpider):
             item=UrlItem()
             item['url']=site
             item['name']=name
+            item['people_id'] = response.meta['people_id']
             items.append(item)
         return items
         

@@ -21,6 +21,7 @@ class imageDownload():
         jitem = json.loads(item, encoding="utf-8")
         url=jitem['url'].encode('ascii')
         name=jitem['name']
+        people_id = jitem['people_id']
         folder="../files/%s"%name
         if not(os.path.exists(folder)):
             os.mkdir(folder)        
@@ -34,7 +35,8 @@ class imageDownload():
             if(os.path.exists(folder+"/%s.jpg"%idStr)):
                 print 'skip ',folder+"/%s.jpg"%idStr
                 return False
-            refer="http://movie.douban.com/celebrity/1049732/photo/%s/"%(idStr)
+            refer="http://movie.douban.com/celebrity/%s/photo/%s/"%(people_id,idStr)
+            print 'refer = ', refer
             request=urllib2.Request(url)
             request.add_header("Referer", refer)
             request.add_header("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; MyIE9; BTRS123646; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)")
